@@ -145,6 +145,7 @@ __global__ void dirtymap_kernel (const floatArray u, const floatArray wavelength
 	                        for (unsigned int j = 0; j < cp.time_samples; j++)
 	                        {
 	                            float travelangle = initial_travelangle+j*cp.delta_tau*omega;
+				    printf("Travelangle: %f\n", travelangle);
 	                            float u_rot [3];
 	                            rotate(threadu, u_rot, travelangle);
 	                            float source_rot [3];
@@ -156,6 +157,7 @@ __global__ void dirtymap_kernel (const floatArray u, const floatArray wavelength
 	                            float Bsq_source = Bsq_from_vecs(source_rot, chord_pointing+3*k, wavelengths.p[l], cp.D);
 	                            float Bsq_u = Bsq_from_vecs(u_rot, chord_pointing+3*k, wavelengths.p[l], cp.D);
 
+				    printf("Bsq_source %f Bsq_u %f cdir1 %f cdir2 %f\n", Bsq_source, Bsq_u, cdir1, cdir2);
 	                            time_sum += Bsq_source * Bsq_u * sin_sq_ratio(cp.m1,cdir1) * sin_sq_ratio(cp.m2,cdir2);
 	                        }
 	                    }
